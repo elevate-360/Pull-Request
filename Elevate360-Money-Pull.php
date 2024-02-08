@@ -14,7 +14,7 @@ $headers = getallheaders();
 $signature = $headers['X-Hub-Signature'] ?? null;
 $body = file_get_contents('php://input');
 
-if ($secretKey && !$this->isValidSignature($body, $signature, $secretKey)) {
+if ($secretKey && !isValidSignature($body, $signature, $secretKey)) {
     http_response_code(403);
     die('Invalid signature.');
 }
