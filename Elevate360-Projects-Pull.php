@@ -24,7 +24,7 @@ $message = date('Y-m-d H:i:s', strtotime("+ 5:30")) . " - successfully pulled ch
 file_put_contents($logFilePath, $message, FILE_APPEND);
 
 // Pull changes from the Git repository
-exec("cd $repoPath && sudo git pull");
+exec("cd $repoPath ; sudo git pull");
 
 // Respond to the webhook request
 echo 'Webhook received successfully.';
