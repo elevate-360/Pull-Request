@@ -14,10 +14,10 @@ $headers = getallheaders();
 $signature = $headers['X-Hub-Signature'] ?? null;
 $body = file_get_contents('php://input');
 
-if ($secretKey && !isValidSignature($body, $signature, $secretKey)) {
-    http_response_code(403);
-    die('Invalid signature.');
-}
+// if ($secretKey && !isValidSignature($body, $signature, $secretKey)) {
+//     http_response_code(403);
+//     die('Invalid signature.');
+// }
 
 // Record the webhook call with date and time to the log file
 $message = date('Y-m-d H:i:s', strtotime("+ 5:30")) . " - successfully pulled changes in Elevate360-Backend.\n";
@@ -29,10 +29,10 @@ exec("cd $repoPath && sudo git pull");
 // Respond to the webhook request
 echo 'Webhook received successfully.';
 
-function isValidSignature($payload, $signature, $secretKey)
-{
-    list($algo, $hash) = explode('=', $signature, 2) + [null, null];
-    $expectedHash = hash_hmac($algo, $payload, $secretKey);
+// function isValidSignature($payload, $signature, $secretKey)
+// {
+//     list($algo, $hash) = explode('=', $signature, 2) + [null, null];
+//     $expectedHash = hash_hmac($algo, $payload, $secretKey);
 
-    return hash_equals($hash, $expectedHash);
-}
+//     return hash_equals($hash, $expectedHash);
+// }
